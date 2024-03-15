@@ -1,62 +1,27 @@
-# Vue + Phaser + ES6 + Webpack.
-#### A project to create games with Vue + Phaser + ES6 + Webpack.
+<h1 align="center">
+  <br>
+  <a href="https://github.com/geocine/phaser3-rollup-typescript#readme"><img src="https://i.imgur.com/6lcIxDs.png" alt="header" width="600"/></a>
+  <br>
+  Phaser 3 TypeScript Starter
+  <br>
+</h1>
 
-## Features
-- Vue based (https://vuejs.org/)
-- Phaser framework (http://www.phaser.io/)
-- Vue Router imported
-- ESLINT with JavaScript AirBnb Style configuration
-- Next generation of Javascript
-- Browsers are automatically updated as you change project files
-- Webpack ready
-- WebFont Loader
+This is a [Phaser 3](https://github.com/photonstorm/phaser) starter with [TypeScript](https://www.typescriptlang.org/), [Rollup](https://rollupjs.org) with ⚡️ lightning fast HMR through [Vite](https://vitejs.dev/).
 
-# Setup
-You'll need to install a few things before you have a working copy of the project.
+## Available Commands
 
-## 1. Clone this repo:
+| Command | Description |
+|---------|-------------|
+| `yarn install` | Install project dependencies |
+| `yarn dev` | Builds project and open web server, watching for changes |
+| `yarn build` | Builds code bundle with production settings  |
+| `yarn serve` | Run a web server to serve built code bundle |
 
-Navigate into your workspace directory.
+## Development
 
-Run:
+After cloning the repo, run `yarn install` from your project directory. Then, you can start the local development
+server by running `yarn dev` and navigate to http://localhost:3000.
 
-```git clone https://github.com/ttzshawn/vue-phaser-starter```
+## Production
 
-## 2. Install node.js and npm:
-
-https://nodejs.org/en/
-
-
-## 3. Install dependencies (optionally you can install [yarn](https://yarnpkg.com/)):
-
-Navigate to the cloned repo's directory.
-
-Run:
-
-```npm install``` 
-
-or if you chose yarn, just run ```yarn```
-
-## 4. Run the development server:
-
-Run:
-
-```npm run dev```
-
-This will run a server so you can run the game in a browser. It will also start a watch process, so you can change the source and the process will recompile and refresh the browser automatically.
-
-To run the game, open your browser and enter http://localhost:3000 into the address bar.
-
-
-## Build for deployment:
-
-Run:
-
-```npm run build```
-
-This will optimize and minimize the compiled bundle.
-
-# Credits
-Big thanks to these great repos:
-
-https://github.com/lean/phaser-es6-webpack
+After running `yarn build`, the files you need for production will be on the `dist` folder. To test code on your `dist` folder, run `yarn serve` and navigate to http://localhost:5000

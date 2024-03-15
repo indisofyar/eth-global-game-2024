@@ -1,46 +1,30 @@
 {
-  "name": "vue-phaser",
-  "version": "0.0.1",
-  "description": "",
-  "author": "ttzshawn@gmail.com",
-  "main": "index.js",
+  "name": "phaser3-rollup-typescript",
+  "version": "1.1.0",
+  "description": "Phaser 3 TypeScript Starter",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "webpack",
-    "build": "webpack --config webpack.production.config.js",
-    "test": "eslint --ext .js,.vue src"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geocine/phaser3-rollup-typescript.git"
+  },
+  "author": "Aivan Monceller",
   "license": "MIT",
-  "devDependencies": {
-    "babel-core": "^6.25.0",
-    "babel-eslint": "^7.2.3",
-    "babel-loader": "^7.1.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "browser-sync": "^2.18.13",
-    "browser-sync-webpack-plugin": "^1.2.0",
-    "clean-webpack-plugin": "^0.1.17",
-    "copy-webpack-plugin": "^4.2.0",
-    "css-loader": "^0.28.7",
-    "eslint": "^4.3.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-html": "^3.2.2",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
-    "expose-loader": "^0.7.3",
-    "html-webpack-plugin": "^2.30.1",
-    "less": "^2.7.3",
-    "less-loader": "^4.0.5",
-    "vue-loader": "^13.4.0",
-    "vue-style-loader": "^3.0.3",
-    "vue-template-compiler": "^2.5.3",
-    "webpack": "^3.4.1"
+  "bugs": {
+    "url": "https://github.com/geocine/phaser3-rollup-typescript/issues"
   },
-  "dependencies": {
-    "axios": "^0.17.1",
-    "phaser-ce": "^2.8.3",
-    "vue": "^2.5.3",
-    "vue-router": "^3.0.1",
-    "webfontloader": "^1.6.28"
+  "homepage": "https://github.com/geocine/phaser3-rollup-typescript#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.31",
+    "@rollup/plugin-alias": "^3.1.9",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-replace": "^4.0.0",
+    "phaser": "^3.55.2",
+    "typescript": "^4.6.4",
+    "vite": "^2.9.13"
   }
 }
