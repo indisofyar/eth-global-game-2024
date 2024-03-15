@@ -1,29 +1,62 @@
-# eth-global-game-2024
+# Vue + Phaser + ES6 + Webpack.
+#### A project to create games with Vue + Phaser + ES6 + Webpack.
 
-This template should help get you started developing with Vue 3 in Vite.
+## Features
+- Vue based (https://vuejs.org/)
+- Phaser framework (http://www.phaser.io/)
+- Vue Router imported
+- ESLINT with JavaScript AirBnb Style configuration
+- Next generation of Javascript
+- Browsers are automatically updated as you change project files
+- Webpack ready
+- WebFont Loader
 
-## Recommended IDE Setup
+# Setup
+You'll need to install a few things before you have a working copy of the project.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 1. Clone this repo:
 
-## Customize configuration
+Navigate into your workspace directory.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Run:
 
-## Project Setup
+```git clone https://github.com/ttzshawn/vue-phaser-starter```
 
-```sh
-npm install
-```
+## 2. Install node.js and npm:
 
-### Compile and Hot-Reload for Development
+https://nodejs.org/en/
 
-```sh
-npm run dev
-```
 
-### Compile and Minify for Production
+## 3. Install dependencies (optionally you can install [yarn](https://yarnpkg.com/)):
 
-```sh
-npm run build
-```
+Navigate to the cloned repo's directory.
+
+Run:
+
+```npm install``` 
+
+or if you chose yarn, just run ```yarn```
+
+## 4. Run the development server:
+
+Run:
+
+```npm run dev```
+
+This will run a server so you can run the game in a browser. It will also start a watch process, so you can change the source and the process will recompile and refresh the browser automatically.
+
+To run the game, open your browser and enter http://localhost:3000 into the address bar.
+
+
+## Build for deployment:
+
+Run:
+
+```npm run build```
+
+This will optimize and minimize the compiled bundle.
+
+# Credits
+Big thanks to these great repos:
+
+https://github.com/lean/phaser-es6-webpack
