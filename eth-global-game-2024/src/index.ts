@@ -8,9 +8,9 @@ import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
 
 
-let encryptionKey:string;
-let userToken:string;
-const uuid:string = uuidv4();
+let encryptionKey: string;
+let userToken: string;
+const uuid: string = uuidv4();
 const blockchains = ['ETH-SEPOLIA', 'MATIC-MUMBAI']
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
@@ -136,8 +136,9 @@ $(document).ready(function () {
             method: 'POST',
             url: 'https://api.circle.com/v1/w3s/user/initialize',
             headers: {
-                'Content-Type': 'application/json',
-                'X-User-Token': userToken,
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + import.meta.env.VITE_CIRCLE_API_KEY,
+
             },
             data: {idempotencyKey: uuid, blockchains: blockchains}
         };
@@ -148,7 +149,7 @@ $(document).ready(function () {
                 console.log(response.data);
             })
             .catch(function (error) {
-                console.error(error);
+                console.error(error.response.data);
             });
 
     }
