@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<link href="/tailwind.css" rel="stylesheet">
+
 <head>
     <title>Phaser 3 TypeScript Starter</title>
     <meta charset="utf-8"/>
@@ -22,28 +24,33 @@
 <body>
 <div id="game"></div>
 <div>
-    Sample App
-    <br/><br/>
-    <div class="row">
-        <div class="label">App Id</div>
-        <input id="appId"/>
+    <div class="max-w-6xl  mx-auto">
+        <br/><br/>
+        <div class="row">
+            <div class="label">App Id</div>
+            3251df8e-13d3-5f7a-ba65-3f5c7d5796c1
+            <input id="appId"/>
+        </div>
+        <div class="row">
+            <div class="label">User Token</div>
+            <input id="userToken"/>
+        </div>
+        <div class="row">
+            <div class="label">Encryption Key</div>
+            <input id="encryptionKey"/>
+        </div>
+        <div class="row">
+            <label class="label">Challenge Id</label>
+            <input id="challengeId"/>
+        </div>
+        <br/>
+        <button id="verifyButton" class="btn">Verify Challenge</button>
     </div>
-    <div class="row">
-        <div class="label">User Token</div>
-        <input id="userToken"/>
-    </div>
-    <div class="row">
-        <div class="label">Encryption Key</div>
-        <input id="encryptionKey"/>
-    </div>
-    <div class="row">
-        <label class="label">Challenge Id</label>
-        <input id="challengeId"/>
-    </div>
-    <br/>
-    <button id="verifyButton">Verify Challenge</button>
+    <button id="getUser" class="btn">Verify Challenge</button>
 </div>
+
 </body>
 </html>
+
 
 

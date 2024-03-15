@@ -4,6 +4,7 @@
   "description": "Phaser 3 TypeScript Starter",
   "main": "dist/index.js",
   "scripts": {
+    "tailwind": "npx tailwindcss -i ./public/_tailwind.css -o ./public/tailwind.css --watch",
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
@@ -23,7 +24,10 @@
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-replace": "^4.0.0",
     "@types/node": "^17.0.31",
+    "daisyui": "^4.7.3",
     "phaser": "^3.55.2",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "tailwindcss": "^3.4.1",
     "typescript": "^4.6.4",
     "vite": "^2.9.13"
   },
@@ -32,9 +36,12 @@
     "@circle-fin/smart-contract-platform": "^2.0.0",
     "@circle-fin/user-controlled-wallets": "^2.0.0",
     "@circle-fin/w3s-pw-web-sdk": "^1.0.9",
+    "axios": "^1.6.8",
+    "crypto": "^1.0.1",
     "fs": "^0.0.1-security",
     "i": "^0.3.7",
     "jquery": "^3.7.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "uuid": "^9.0.1"
   }
 }
