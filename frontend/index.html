@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <link href="/tailwind.css" rel="stylesheet">
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 <head>
-    <title>Phaser 3 TypeScript Starter</title>
+    <title>Sidescrolling NFT Market</title>
     <meta charset="utf-8"/>
     <style>
         .row {
@@ -18,36 +19,127 @@
         input {
             min-width: 200px;
         }
+
+        canvas {
+            border-radius: 11px;
+        }
     </style>
     <script type="module" src="/src/index.ts"></script>
 </head>
-<body>
-<div id="game"></div>
-<div>
-    <div class="max-w-6xl  mx-auto">
-        <br/><br/>
-        <div class="row">
-            <div class="label">App Id</div>
-            3251df8e-13d3-5f7a-ba65-3f5c7d5796c1
-            <input id="appId"/>
+<body style="padding-bottom: 140px; padding-top: 33px; background: #1E2329">
+
+<div id="app" class="h-full">
+    <div class="h-full " style="overflow: hidden; gap: 100px">
+        <div class="relative flex justify-center h-full w-full ">
+
+            <div id="game" class="absolute mx-auto" style="position:relative; overflow: hidden; width: 1600px">
+                <div ref="nftImage"  style="width: 200px; height: fit-content; position: absolute; z-index: 1; border-radius: 11px; top: 100px; right: -200px ">
+                    <img :src="imageUrls[index]"
+
+
+                    >
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="label">User Token</div>
-            <input id="userToken"/>
-        </div>
-        <div class="row">
-            <div class="label">Encryption Key</div>
-            <input id="encryptionKey"/>
-        </div>
-        <div class="row">
-            <label class="label">Challenge Id</label>
-            <input id="challengeId"/>
-        </div>
-        <br/>
-        <button id="verifyButton" class="btn">Verify Challenge</button>
+
     </div>
-    <button id="getUser" class="btn">Verify Challenge</button>
+    <div class="fixed bottom-0 right-0 left-0  h-[90px] border-solid border-t border-[#626465] flex justify-end">
+        <button class="border-l border-[#626465] border-solid h-full p-2 flex items-center gap-2 px-4"
+                @click="getWallet()">
+            <div>View wallet</div>
+            <img src="/assets/wallet-web3.png">
+        </button>
+    </div>
 </div>
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    const {createApp, ref} = Vue
+
+    createApp({
+        data() {
+            return {
+                baseUrl: 'http://localhost:4000',
+                imageUrls: [],
+                index: 0,
+                imagePosition: {
+                    top: 100,
+                    right: 100,
+                    scale: 1,
+                }
+
+            }
+        },
+        beforeMount() {
+            window.playerX = 100;
+        },
+        created() {
+            this.getNfts();
+            console.log('adding event listener')
+
+        },
+        mounted() {
+            const vm = this;
+            let x = 0
+            document.addEventListener('keyup', (e) => {
+                console.log('key press')
+                if (e.code === "ArrowRight") x += 1
+                else if (e.code === "ArrowLeft") x -= 1
+                vm.updatePosition(x)
+            });
+        },
+        computed: {
+            playerX() {
+                console.log(window.playerX)
+                return window.playerX
+            },
+
+        },
+        watch: {
+            playerX(newVal) {
+                console.log(newVal)
+            }
+        },
+        methods: {
+            updatePosition(x) {
+                const img = this.$refs.nftImage;
+
+                // Adjust the playerX position based on the keyboard input
+                window.playerX += x;
+
+                // Update the style of the image to reflect the new position
+                img.style.right = `${window.playerX}px`;
+                img.style.transform = `${window.playerX}px`;
+            },
+
+            listWallets() {
+                axios.get(this.baseUrl + '/list-wallets').then((res) => {
+                    console.log(res)
+                }).catch((e) => {
+                    console.log(e)
+                })
+            },
+            getNfts() {
+                const vm = this;
+                axios.get(this.baseUrl + '/get-nfts').then((res) => {
+                    let i = 0;
+                    for (const nft of res.data) {
+                        if (nft.image && nft.image.cachedUrl && i < 10) {
+                            i++;
+                            vm.imageUrls.push(nft.image.cachedUrl)
+                        }
+                    }
+                    window.imageUrls = vm.imageUrls
+                    console.log(window)
+                }).catch((e) => {
+                    console.log(e)
+                })
+            },
+        }
+    }).mount('#app')
+</script>
 
 </body>
 </html>

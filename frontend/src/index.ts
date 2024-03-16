@@ -14,7 +14,8 @@ let challengeId: string;
 let appId: string;
 const uuid: string = uuidv4();
 const blockchains = ['ETH-SEPOLIA', 'MATIC-MUMBAI'];
-const baseUrl = 'https://eth-global-game-2024-production.up.railway.app/';
+let baseUrl = 'https://eth-global-game-2024-production.up.railway.app/';
+baseUrl = 'http://localhost:4000';
 const userId = '2f1dcb5e-312a-4b15-8240-abeffc0e3463';
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
@@ -35,7 +36,26 @@ new Phaser.Game(
 
 $(document).ready(function () {
 
+    function checkWalletStatus() {
+
+        const options = {
+            method: 'GET',
+            url: 'https://api.circle.com/v1/w3s/wallets/' + userId + '',
+        };
+
+        axios
+            .request(options)
+            .then(function (response: object) {
+                console.log(response.data);
+            })
+            .catch(function (error: object) {
+                console.error(error);
+            });
+    }
+
     function createWallet() {
+
+
         const sdk = new W3SSdk()
 
         sdk.setAppSettings({
@@ -48,7 +68,7 @@ $(document).ready(function () {
         })
 
 
-        sdk.execute($('#challengeId').val(), (error, result) => {
+        sdk.execute(challengeId, (error, result) => {
             if (error) {
                 console.log(
                     `${error?.code?.toString() || 'Unknown code'}: ${
@@ -107,6 +127,7 @@ $(document).ready(function () {
                 if (appId && userToken && encryptionKey) {
                     console.log('creating wallet')
                     createWallet();
+                    checkWalletStatus();
                 }
 
             })
@@ -142,6 +163,32 @@ $(document).ready(function () {
 
     }
 
+    function createWallet() {
+        const options = {
+            method: 'POST',
+            url: baseUrl + '/create-wallet',
+            data: {
+               userToken: userToken,
+            }
+        };
+
+        axios
+            .request(options)
+            .then(function (response) {
+                console.log('res data is ' + response.data)
+                // userToken = response.data.data.userToken;
+                //
+                // encryptionKey = response.data.data.encryptionKey;
+
+
+                // initialiseUser();
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+
+    }
+
     async function getSessionToken() {
 
 
@@ -158,7 +205,9 @@ $(document).ready(function () {
                 userToken = response.data.data.userToken;
 
                 encryptionKey = response.data.data.encryptionKey;
-                initialiseUser()
+                createWallet();
+
+                // initialiseUser();
             })
             .catch(function (error) {
                 console.error(error);
@@ -207,8 +256,10 @@ $(document).ready(function () {
 
     $(function () {
         // $('#verifyButton').click(createWallet())
-        $('#getUser').click(initialiseUser())
+        // $('#getUser').click(initialiseUser())
+        // $('#checkWallet').click(checkWalletStatus())
     })
-
-    getAppId();
+    // getSessionToken();
+    // getAppId();
+    checkWalletStatus();
 })

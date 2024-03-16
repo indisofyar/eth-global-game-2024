@@ -4,6 +4,7 @@ import getAtlas from '../utils/getAtlas';
 // import {getRandomFilePath} from '../utils/getRandomFilePath'
 
 const nousAmt = 150
+const nftAmt = 80
 
 export default class Demo extends Phaser.Scene {
     constructor() {
@@ -14,16 +15,23 @@ export default class Demo extends Phaser.Scene {
         this.bg2
         this.bg3
         this.nousImages
-
+        this.nfts
+        this.nftsLoaded
     }
 
+
+
     preload() {
+
+
         this.load.image('bg', 'nous_assets/0_Backgrounds/bg-cool.png')
         this.load.image('bg', 'nous_assets/0_Backgrounds/bg-warm.png')
         this.load.image('bg1', 'Background/1.png')
         this.load.image('bg2', 'Background/2.png')
         this.load.image('bg3', 'Background/3.png')
         this.load.image('bg4', 'Background/4.png')
+
+
         this.load.spritesheet('frog', 'Main Characters/Ninja Frog/Idle (32x32).png', {frameHeight: 32, frameWidth: 32})
         this.load.spritesheet('frogwalk', 'Main Characters/Ninja Frog/Run (32x32).png', {
             frameHeight: 32,
@@ -37,23 +45,24 @@ export default class Demo extends Phaser.Scene {
 
         let i = 0
         while (i < nousAmt) {
-            // Get 12 random nous heads
             this.load.image('nous' + i, 'nous_assets/1_Heads/head-' + randomHead() + '.png');
             i++;
         }
+        this.load.audio('music', ['music/techno-short.mp3']);
 
 
     }
 
     create() {
         this.power = 0;
+        this.sound.add('music').play()
 
         const {width, height} = this.game.config;
-
 
         const inputWidth = width * 4;
         const inputHeight = height * 9;
         this.bgbg = this.add.image(0, 0, "bg1",)
+
         this.bgbg.setScale(50)
         this.bg = this.add.image(0, 0, "bg1",)
         this.bg.setScale(5)
@@ -73,7 +82,6 @@ export default class Demo extends Phaser.Scene {
         const minDis = 50
         let randomScale = () => Math.random() * (max - min) + min;
         let randomDistance = () => Math.random() * (maxDis - minDis) + minDis;
-
 
         // this.add.image(0,  0, inputWidth, inputHeight, 'bg1')
         // this.add.image(0,  0, inputWidth, inputHeight, 'bg2')
@@ -196,6 +204,7 @@ export default class Demo extends Phaser.Scene {
             player.x = player.x - moveAmount()
             player.anims.play('walk', true);
             player.setFlip(true, false)
+
 
         }
 
