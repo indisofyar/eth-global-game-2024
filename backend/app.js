@@ -32,6 +32,10 @@ app.options('/initialise', function (req, res) {
     res.sendStatus(200);
 });
 
+app.get('/', function (req, res) {
+    res.send('Welcome to server')
+})
+
 app.get('/initialise', function (req, res) {
     res.send('hello')
 })
