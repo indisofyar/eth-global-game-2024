@@ -10,9 +10,12 @@ import {v4 as uuidv4} from 'uuid';
 
 let encryptionKey: string;
 let userToken: string;
+let challengeId: string;
+let appId: string;
 const uuid: string = uuidv4();
 const blockchains = ['ETH-SEPOLIA', 'MATIC-MUMBAI'];
-const baseUrl = 'http://localhost:4000'
+const baseUrl = 'https://eth-global-game-2024-production.up.railway.app/';
+const userId = '2f1dcb5e-312a-4b15-8240-abeffc0e3463';
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + import.meta.env.VITE_CIRCLE_API_KEY
@@ -29,18 +32,19 @@ new Phaser.Game(
     })
 );
 
-const userId = '2f1dcb5e-312a-4b15-8240-abeffc0e3463'
 
 $(document).ready(function () {
-    function onSubmit() {
+
+    function createWallet() {
         const sdk = new W3SSdk()
 
         sdk.setAppSettings({
-            appId: $('#appId').val(),
+            appId: appId,
         })
+
         sdk.setAuthentication({
-            userToken: $('#userToken').val(),
-            encryptionKey: $('#encryptionKey').val(),
+            userToken: userToken,
+            encryptionKey: encryptionKey,
         })
 
 
@@ -99,7 +103,12 @@ $(document).ready(function () {
         axios
             .request(options)
             .then(function (response) {
-                console.log(response.data);
+                challengeId = response.data.data.challengeId;
+                if (appId && userToken && encryptionKey) {
+                    console.log('creating wallet')
+                    createWallet();
+                }
+
             })
             .catch(function (error) {
                 console.error(error)
@@ -163,6 +172,8 @@ $(document).ready(function () {
 
         axios.get(url, axiosConfig)
             .then(response => {
+                console.log('app id', response.data.data.appId)
+                appId = response.data.data.appId
                 getSessionToken();
 
             })
@@ -195,7 +206,7 @@ $(document).ready(function () {
     }
 
     $(function () {
-        $('#verifyButton').click(onSubmit)
+        // $('#verifyButton').click(createWallet())
         $('#getUser').click(initialiseUser())
     })
 
