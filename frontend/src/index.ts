@@ -11,7 +11,8 @@ import {v4 as uuidv4} from 'uuid';
 let encryptionKey: string;
 let userToken: string;
 const uuid: string = uuidv4();
-const blockchains = ['ETH-SEPOLIA', 'MATIC-MUMBAI']
+const blockchains = ['ETH-SEPOLIA', 'MATIC-MUMBAI'];
+const baseUrl = 'http://localhost:4000'
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + import.meta.env.VITE_CIRCLE_API_KEY
@@ -42,53 +43,6 @@ $(document).ready(function () {
             encryptionKey: $('#encryptionKey').val(),
         })
 
-
-        // If you want to customize the UI, you can uncomment & use the following code.
-        // sdk.setLocalizations({
-        //   common: {
-        //     continue: 'Next',
-        //   },
-        //   securityIntros: {
-        //     headline:
-        //       'Set up your {{method}} to recover your pin code if you forget it',
-        //     headline2: 'Security Question',
-        //   },
-        // })
-
-        // sdk.setThemeColor({
-        //   backdrop: '#fcba03',
-        //   backdropOpacity: 0.8,
-        //   textMain: '#2403fc',
-        // })
-
-        // sdk.setResources({
-        //   naviClose:
-        //     'https://static.vecteezy.com/system/resources/previews/018/887/462/non_2x/signs-close-icon-png.png',
-        //   securityIntroMain:
-        //     'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/rockcms/2022-01/210602-doge-meme-nft-mb-1715-8afb7e.jpg',
-        //   fontFamily: {
-        //     name: 'Edu TAS Beginner',
-        //     url: 'https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400;500;600;700&display=swap',
-        //   },
-        // })
-
-        // sdk.setCustomSecurityQuestions(
-        //   [
-        //     {
-        //       question: 'What is your favorite color?',
-        //       type: 'TEXT',
-        //     },
-        //     {
-        //       question: 'What is your favorite food?',
-        //       type: 'TEXT',
-        //     },
-        //     {
-        //       question: 'When is your birthday?',
-        //       type: 'DATE',
-        //     },
-        //   ],
-        //   1
-        // )
 
         sdk.execute($('#challengeId').val(), (error, result) => {
             if (error) {
@@ -130,7 +84,32 @@ $(document).ready(function () {
     }
 
     function initialiseUser() {
-        console.log('user token is', userToken)
+        console.log('initialising')
+        console.log('user tken is ', userToken)
+        const options = {
+            method: 'POST',
+            url: baseUrl + '/initialise',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + import.meta.env.VITE_CIRCLE_API_KEY,
+            },
+            data: {idempotencyKey: uuid, blockchains: blockchains, userToken: userToken}
+        };
+
+        axios
+            .request(options)
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.error(error)
+                console.error(error.response);
+            });
+
+    }
+
+    function initialiseUserFrontend() {
+
 
         const options = {
             method: 'POST',
@@ -138,11 +117,11 @@ $(document).ready(function () {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': 'Bearer ' + import.meta.env.VITE_CIRCLE_API_KEY,
-
+                'X-User-Token': userToken,
             },
             data: {idempotencyKey: uuid, blockchains: blockchains}
         };
-        console.log('user initialising:')
+
         axios
             .request(options)
             .then(function (response) {
@@ -166,8 +145,9 @@ $(document).ready(function () {
         axios
             .request(options)
             .then(function (response) {
-                console.log(response.data)
+                console.log('res data is ' + response.data)
                 userToken = response.data.data.userToken;
+
                 encryptionKey = response.data.data.encryptionKey;
                 initialiseUser()
             })
@@ -199,7 +179,7 @@ $(document).ready(function () {
             url: 'https://api.circle.com/v1/w3s/user/initialize',
             headers: {
                 'Content-Type': 'application/json',
-                'X-User-Token': '<USER_TOKEN>'
+                'X-User-Token': userId,
             },
             data: {idempotencyKey: '<IDEMPOTENCY_KEY>', blockchains: '[<BLOCKCHAIN>]'}
         };
@@ -216,7 +196,7 @@ $(document).ready(function () {
 
     $(function () {
         $('#verifyButton').click(onSubmit)
-        $('#getUser').click(getUser)
+        $('#getUser').click(initialiseUser())
     })
 
     getAppId();
