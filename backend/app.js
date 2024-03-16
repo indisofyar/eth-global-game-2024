@@ -19,11 +19,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors()); // Enable CORS for all routes
 
-
-// Listen to requests
-app.listen(4000, function () {
-    console.log('Server is listening on port 4000');
-});
+//
+// // Listen to requests
+// app.listen(4000, function () {
+//     console.log('Server is listening on port 4000');
+// });
 
 app.options('/initialise', function (req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
