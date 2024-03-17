@@ -199,13 +199,17 @@
 
                 const img = document.getElementById('nftImage');
 
+                if ((vm.index / 3) == 0) {
+                    vm.getNfts()
+                }
+
                 if (vm.x < (0 - maxWidth)) {
-                    vm.index++
+                    vm.index++;
                     img.style.zIndex = -1
                     img.style.opacity = 0
                     vm.x = 400
                     vm.scale = 1
-                    if (vm.index % 3 == 0) vm.getNfts()
+
                     img.style.transform = `translateX(${this.x}px scale(${scale})`;
                     setTimeout(() => {
 
@@ -252,6 +256,7 @@
             },
             getNfts() {
                 const vm = this;
+                console.log('getting nfts')
                 axios.get(this.baseUrl + '/get-nfts').then((res) => {
                     let i = 0;
                     for (const nft of res.data) {
