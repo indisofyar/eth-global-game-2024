@@ -183,17 +183,17 @@ export default class Demo extends Phaser.Scene {
     }
 
     update() {
-
-        if (this.player.x > 50) {
-            this.bg = this.add.image(0, 0, "bb1",)
-            this.bg.setScale(5)
-            this.bg1 = this.add.image(400, 200, "bb2",)
-            this.bg1.setScale(1)
-            this.bg2 = this.add.image(0, height, "bb3",)
-            this.bg2.setScale(3)
-            this.bg3 = this.add.image(0, height, "bb4",)
-            this.bg3.setScale(3)
-        }
+        // const {width, height} = this.game.config;
+        // if (this.player.x > 50) {
+        //     this.bg = this.add.image(0, 0, "bb1",)
+        //     this.bg.setScale(5)
+        //     this.bg1 = this.add.image(400, 200, "bb2",)
+        //     this.bg1.setScale(1)
+        //     this.bg2 = this.add.image(0, height, "bb3",)
+        //     this.bg2.setScale(3)
+        //     this.bg3 = this.add.image(0, height, "bb4",)
+        //     this.bg3.setScale(3)
+        // }
 
 
         const max = 0.1
