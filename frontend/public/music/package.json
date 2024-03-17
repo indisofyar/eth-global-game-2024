@@ -1,0 +1,113 @@
+{
+  "contract": {
+    "address": "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
+    "name": "Otherdeed",
+    "symbol": "OTHR",
+    "totalSupply": "100000",
+    "tokenType": "ERC721",
+    "contractDeployer": "0xE53c9CBFC1314B6CF6bA508230457df130552bC6",
+    "deployedBlockNumber": 14672945,
+    "openSeaMetadata": {
+      "floorPrice": 0.2478,
+      "collectionName": "Otherdeed for Otherside",
+      "collectionSlug": "otherdeed",
+      "safelistRequestStatus": "verified",
+      "imageUrl": "https://i.seadn.io/gae/yIm-M5-BpSDdTEIJRt5D6xphizhIdozXjqSITgK4phWq7MmAU3qE7Nw7POGCiPGyhtJ3ZFP8iJ29TFl-RLcGBWX5qI4-ZcnCPcsY4zI?w=500&auto=format",
+      "description": "Otherdeed is the key to claiming land in Otherside. Each have a unique blend of environment and sediment — some with resources, some home to powerful artifacts. And on a very few, a Koda roams.",
+      "twitterUsername": "othersidemeta",
+      "discordUrl": "https://discord.gg/the-otherside",
+      "bannerImageUrl": "https://i.seadn.io/gae/E_XVuM8mX1RuqBym2JEX4RBg_sj9KbTFBAi0qU4eBr2E3VCC0bwpWrgHqBOaWsKGTf4-DBseuZJGvsCVBnzLjxqgq7rAb_93zkZ-?w=500&auto=format",
+      "lastIngestedAt": "2024-03-14T03:28:39.000Z"
+    },
+    "spamClassifications": []
+  },
+  "tokenId": "0",
+  "tokenType": "ERC721",
+  "tokenUri": "https://api.otherside.xyz/lands/0",
+  "image": {
+    "cachedUrl": "https://nft-cdn.alchemy.com/eth-mainnet/329d4f09208737a268ad3b7a392fab51",
+    "thumbnailUrl": "https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/329d4f09208737a268ad3b7a392fab51",
+    "pngUrl": "https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/329d4f09208737a268ad3b7a392fab51",
+    "contentType": "image/jpeg",
+    "size": 1823500,
+    "originalUrl": "https://assets.otherside.xyz/otherdeeds/98de818747a85008c5b88b7125763067d9106ebc295296ee5a3c3f31e3527d29.jpg"
+  },
+  "raw": {
+    "tokenUri": "https://api.otherside.xyz/lands/0",
+    "metadata": {
+      "image": "https://assets.otherside.xyz/otherdeeds/98de818747a85008c5b88b7125763067d9106ebc295296ee5a3c3f31e3527d29.jpg",
+      "attributes": [
+        {
+          "value": "Spirit",
+          "trait_type": "Category"
+        },
+        {
+          "value": "Biogenic Swamp",
+          "trait_type": "Sediment"
+        },
+        {
+          "display_type": "number",
+          "value": 1,
+          "trait_type": "Sediment Tier"
+        },
+        {
+          "value": "Steppes",
+          "trait_type": "Environment"
+        },
+        {
+          "display_type": "number",
+          "value": 4,
+          "trait_type": "Environment Tier"
+        },
+        {
+          "value": "Whisper",
+          "trait_type": "Eastern Resource"
+        },
+        {
+          "display_type": "number",
+          "value": 3,
+          "trait_type": "Eastern Resource Tier"
+        },
+        {
+          "value": "Lumileaf",
+          "trait_type": "Southern Resource"
+        },
+        {
+          "display_type": "number",
+          "value": 3,
+          "trait_type": "Southern Resource Tier"
+        },
+        {
+          "value": "Moldium",
+          "trait_type": "Northern Resource"
+        },
+        {
+          "display_type": "number",
+          "value": 1,
+          "trait_type": "Northern Resource Tier"
+        },
+        {
+          "value": 9068,
+          "trait_type": "Koda"
+        },
+        {
+          "display_type": "number",
+          "value": 0,
+          "trait_type": "Plot"
+        },
+        {
+          "value": "First Trip",
+          "trait_type": "Obelisk Piece"
+        }
+      ],
+      "id": 0
+    }
+  },
+  "collection": {
+    "name": "Otherdeed for Otherside",
+    "slug": "otherdeed",
+    "bannerImageUrl": "https://i.seadn.io/gae/E_XVuM8mX1RuqBym2JEX4RBg_sj9KbTFBAi0qU4eBr2E3VCC0bwpWrgHqBOaWsKGTf4-DBseuZJGvsCVBnzLjxqgq7rAb_93zkZ-?w=500&auto=format"
+  },
+  "mint": {},
+  "timeLastUpdated": "2024-03-16T23:38:39.038Z"
+}

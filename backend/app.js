@@ -112,10 +112,31 @@ app.post('/create-wallet', function (req, res, next) {
         });
 });
 
-app.get('/wallet-status/:userId', function (req, res, next) {
+app.get('/wallet-status/:walletId', function (req, res, next) {
     const fetch = require('node-fetch');
 
-    const url = 'https://api.circle.com/v1/w3s/wallets/' + req.params.userId.trim();
+    const url = 'https://api.circle.com/v1/w3s/wallets/' + 'de9a9d47-cb00-537f-8e74-605aeb8f753f';
+    const options = {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + process.env.CIRCLE_API_KEY}
+    };
+
+    fetch(url, options)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+            res.send(json); // Send response back to the client
+        })
+        .catch(err => {
+            console.error('error:', err);
+            res.status(500).send('Internal Server Error'); // Handle error
+        });
+});
+
+app.get('/wallet-bal/:walletId', function (req, res, next) {
+    const fetch = require('node-fetch');
+
+    const url = 'https://api.circle.com/v1/w3s/wallets/' + 'de9a9d47-cb00-537f-8e74-605aeb8f753f' + '/balances';
     const options = {
         method: 'GET',
         headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + process.env.CIRCLE_API_KEY}

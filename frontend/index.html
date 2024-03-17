@@ -22,6 +22,16 @@
 
         canvas {
             border-radius: 11px;
+            width: 1600px;
+            margin-top: 0 !important;
+        }
+
+        .cardToggled {
+            background-color: white;
+            padding: 15px;
+            border-radius: 11px;
+            width: 200px;
+            transition: 0.5s ease;
         }
     </style>
     <script type="module" src="/src/index.ts"></script>
@@ -32,20 +42,72 @@
     <div class="h-full " style="overflow: hidden; gap: 100px">
         <div class="relative flex justify-center h-full w-full ">
 
-            <div id="game" class="absolute mx-auto" style="position:relative; overflow: hidden; width: 1600px">
-                <div ref="nftImage"  style="width: 200px; height: fit-content; position: absolute; z-index: 1; border-radius: 11px; top: 100px; right: -200px ">
+            <div id="game" class="absolute mx-auto" style="position:relative; overflow: hidden; ">
+                <div id="nftImage"
+                     style=" height: fit-content; position: absolute; z-index: 1; border-radius: 11px; top: 100px; right: 0px;   transition: transform 0.05s ease;"
+                     :class="{' cardToggled shadow-xl ' : toggleDetails, 'w-[200px]' :  !toggleDetails}"
+                >
                     <img :src="imageUrls[index]"
+                         style="transition: transform 0.1s ease; border-radius: 11px"
 
 
                     >
+                    <div v-if="toggleDetails">
+                        <h2 class="text-black font-bold my-3">{{nfts[index].collection.name}}</h2>
+                        <div class="flex text-black items-start gap-4">
+                            <p class="line-clamp-2">{{nfts[index].description}}</p>
+
+                            <button class="border border-solid border-black py-1 px-5 rounded-xl text-xs mt-2 ">Read
+                                more
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
-    <div class="fixed bottom-0 right-0 left-0  h-[90px] border-solid border-t border-[#626465] flex justify-end">
+    <div class="fixed bg-white mx-auto " v-if="walletOpen"
+         style="width: 300px; height: 600px; border-radius: 11px;  bottom: 115px; right: 30px; z-index: 2">
+        <div class="p-4 w-full shadow-lg flex justify-between">
+            <button class="rounded-full bg-gray-100 p-1 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     @click="dropdownOpen = !dropdownOpen"
+                     class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                </svg>
+                <div class="absolute p-4 bg-white shadow-lg rounded-xl text-black text-left w-[200px]"
+                     v-if="dropdownOpen && walletData">
+                    <strong>User</strong><br>
+                    <span class="text-xs"> {{walletData.userId}}</span>
+                </div>
+            </button>
+            <div class="text-black font-bold">Account 1</div>
+
+        </div>
+        <div class="flex justify-center flex-col items-center">
+            <button class="w-[100px] text-ellipsis bg-gray-200 p-2 rounded-full my-4 overflow-hidden text-gray-800">
+                {{walletData.address}}
+            </button>
+            <div v-if="balance" class="text-black font-bold text-xl">
+                {{balance.tokenBalances.length == 0 ? 'No balances' : balance.tokenBalances[0]}}
+            </div>
+        </div>
+        <div v-if="walletData" class="px-4 py-8">
+
+            <p>Account type: {{walletData.accountType}}</p>
+            <p>Blockchain: {{walletData.blockchain}}</p>
+
+        </div>
+    </div>
+    <div class="fixed bottom-0 right-0 left-0  h-[90px] border-solid border-t border-[#626465] flex justify-between">
+        <button class="pl-4">
+            <div :style="'opacity:' + (show ? 1: 0)">Press space to view more details</div>
+
+        </button>
         <button class="border-l border-[#626465] border-solid h-full p-2 flex items-center gap-2 px-4"
-                @click="getWallet()">
+                @click="getWallet(); walletOpen = !walletOpen;">
             <div>View wallet</div>
             <img src="/assets/wallet-web3.png">
         </button>
@@ -63,13 +125,21 @@
             return {
                 baseUrl: 'http://localhost:4000',
                 imageUrls: [],
+                nfts: [],
                 index: 0,
                 imagePosition: {
                     top: 100,
                     right: 100,
                     scale: 1,
-                }
-
+                },
+                x: 0,
+                walletData: {},
+                walletOpen: false,
+                dropdownOpen: false,
+                balance: null,
+                scale: 1,
+                toggleShow: false,
+                toggleDetails: false,
             }
         },
         beforeMount() {
@@ -78,16 +148,16 @@
         created() {
             this.getNfts();
             console.log('adding event listener')
-
+            this.getWallet()
         },
         mounted() {
             const vm = this;
             let x = 0
-            document.addEventListener('keyup', (e) => {
+            document.addEventListener('keydown', (e) => {
                 console.log('key press')
-                if (e.code === "ArrowRight") x += 1
-                else if (e.code === "ArrowLeft") x -= 1
-                vm.updatePosition(x)
+                if (e.code === "ArrowRight") vm.updatePosition('right')
+                else if (e.code === "ArrowLeft") vm.updatePosition('left')
+                else if (e.code == 'Space') vm.toggleDetails = !vm.toggleDetails
             });
         },
         computed: {
@@ -95,6 +165,9 @@
                 console.log(window.playerX)
                 return window.playerX
             },
+            show() {
+                return this.scale > 1.1
+            }
 
         },
         watch: {
@@ -103,20 +176,76 @@
             }
         },
         methods: {
-            updatePosition(x) {
-                const img = this.$refs.nftImage;
+            updatePosition(direction) {
+                let x
+                const amt = 40
+                if (direction == 'right') x = -amt
+                else x = amt
+                const canvas = document.querySelector('canvas')
+                const maxWidth = canvas.getBoundingClientRect().width
+                const vm = this;
 
+                //Scale ranges from one to 2
+                const positiveX = (vm.x * -1)
+                const half = (maxWidth / 2)
+                const percent = positiveX / half
+                console.log('x')
+                console.log(positiveX, half, percent)
+
+
+                vm.scale = positiveX < (half - 200) ? vm.scale + 0.03 : vm.scale - 0.02
+                const scale = vm.scale
+                console.log('scale is ' + scale)
+
+                const img = document.getElementById('nftImage');
+
+                if (vm.x < (0 - maxWidth)) {
+                    vm.index++
+                    img.style.zIndex = -1
+                    img.style.opacity = 0
+                    vm.x = 400
+                    vm.scale = 1
+                    if (vm.index % 3 == 0) vm.getNfts()
+                    img.style.transform = `translateX(${this.x}px scale(${scale})`;
+                    setTimeout(() => {
+
+                        img.style.zIndex = 1
+                        img.style.opacity = 1
+
+                    }, 110)
+
+                    return
+
+                }
                 // Adjust the playerX position based on the keyboard input
-                window.playerX += x;
+                this.x += x;
 
                 // Update the style of the image to reflect the new position
-                img.style.right = `${window.playerX}px`;
-                img.style.transform = `${window.playerX}px`;
+                img.style.transform = `translateX(${this.x}px) scale(${scale})`;
             },
 
             listWallets() {
                 axios.get(this.baseUrl + '/list-wallets').then((res) => {
                     console.log(res)
+                }).catch((e) => {
+                    console.log(e)
+                })
+            },
+            getWallet() {
+                const vm = this
+                axios.get(this.baseUrl + '/wallet-status/1').then((res) => {
+
+                    vm.walletData = res.data.data.wallet;
+                    vm.getWalletBal();
+                }).catch((e) => {
+                    console.log(e)
+                })
+            },
+            getWalletBal() {
+                const vm = this
+                axios.get(this.baseUrl + '/wallet-bal/1').then((res) => {
+                    vm.balance = res.data.data;
+
                 }).catch((e) => {
                     console.log(e)
                 })
@@ -129,6 +258,7 @@
                         if (nft.image && nft.image.cachedUrl && i < 10) {
                             i++;
                             vm.imageUrls.push(nft.image.cachedUrl)
+                            vm.nfts.push(nft)
                         }
                     }
                     window.imageUrls = vm.imageUrls

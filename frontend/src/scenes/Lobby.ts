@@ -53,6 +53,10 @@ export default class Demo extends Phaser.Scene {
 
     }
 
+    loadBg(){
+
+    }
+
     create() {
         this.power = 0;
         this.sound.add('music').play()
