@@ -14,8 +14,8 @@ let challengeId: string;
 let appId: string;
 const uuid: string = uuidv4();
 const blockchains = ['ETH-SEPOLIA', 'MATIC-MUMBAI'];
-let baseUrl = 'https://eth-global-game-2024-production.up.railway.app/';
-baseUrl = 'http://localhost:4000';
+let baseUrl = 'https://eth-global-game-2024-production.up.railway.app';
+// baseUrl = 'http://localhost:4000';
 const userId = '2f1dcb5e-312a-4b15-8240-abeffc0e3463';
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
