@@ -19,11 +19,11 @@ let baseUrl = 'https://eth-global-game-2024-production.up.railway.app';
 const userId = '2f1dcb5e-312a-4b15-8240-abeffc0e3463';
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + import.meta.env.VITE_CIRCLE_API_KEY
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + 'TEST_API_KEY:64070e0377ca91ae4c8e21e8afddc3c0:7e693a5333675b1fe796f3a1f1042a22'
 const axiosConfig = {
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + import.meta.env.VITE_CIRCLE_API_KEY,
+        'Authorization': 'Bearer ' + 'TEST_API_KEY:64070e0377ca91ae4c8e21e8afddc3c0:7e693a5333675b1fe796f3a1f1042a22',
     }
 };
 
@@ -115,7 +115,7 @@ $(document).ready(function () {
             url: baseUrl + '/initialise',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Bearer ' + import.meta.env.VITE_CIRCLE_API_KEY,
+                'Authorization': 'Bearer ' + 'TEST_API_KEY:64070e0377ca91ae4c8e21e8afddc3c0:7e693a5333675b1fe796f3a1f1042a22',
             },
             data: {idempotencyKey: uuid, blockchains: blockchains, userToken: userToken}
         };
@@ -146,7 +146,7 @@ $(document).ready(function () {
             url: 'https://api.circle.com/v1/w3s/user/initialize',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Bearer ' + import.meta.env.VITE_CIRCLE_API_KEY,
+                'Authorization': 'Bearer ' + 'TEST_API_KEY:64070e0377ca91ae4c8e21e8afddc3c0:7e693a5333675b1fe796f3a1f1042a22',
                 'X-User-Token': userToken,
             },
             data: {idempotencyKey: uuid, blockchains: blockchains}
