@@ -20,7 +20,6 @@ export default class Demo extends Phaser.Scene {
     }
 
 
-
     preload() {
 
 
@@ -30,7 +29,10 @@ export default class Demo extends Phaser.Scene {
         this.load.image('bg2', 'Background/2.png')
         this.load.image('bg3', 'Background/3.png')
         this.load.image('bg4', 'Background/4.png')
-
+        this.load.image('bb1', 'Background/1.png')
+        this.load.image('bb2', 'Background/2.png')
+        this.load.image('bb3', 'Background/3.png')
+        this.load.image('bb4', 'Background/4.png')
 
         this.load.spritesheet('frog', 'Main Characters/Ninja Frog/Idle (32x32).png', {frameHeight: 32, frameWidth: 32})
         this.load.spritesheet('frogwalk', 'Main Characters/Ninja Frog/Run (32x32).png', {
@@ -53,7 +55,7 @@ export default class Demo extends Phaser.Scene {
 
     }
 
-    loadBg(){
+    loadBg() {
 
     }
 
@@ -181,6 +183,19 @@ export default class Demo extends Phaser.Scene {
     }
 
     update() {
+
+        if (this.player.x > 50) {
+            this.bg = this.add.image(0, 0, "bb1",)
+            this.bg.setScale(5)
+            this.bg1 = this.add.image(400, 200, "bb2",)
+            this.bg1.setScale(1)
+            this.bg2 = this.add.image(0, height, "bb3",)
+            this.bg2.setScale(3)
+            this.bg3 = this.add.image(0, height, "bb4",)
+            this.bg3.setScale(3)
+        }
+
+
         const max = 0.1
         const min = 0
         let moveAmount = () => Math.random() * (max - min) + min;
