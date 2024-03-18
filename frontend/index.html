@@ -54,8 +54,12 @@
                     >
                     <div v-if="toggleDetails">
                         <h2 class="text-black font-bold my-3">{{nfts[index].collection.name}}</h2>
+                        <div class="flex gap-4">
+                            <img src="/apecoin.png" style="height: 20px">
+                            <img src="/ethereum.webp" style="height: 20px">
+                        </div>
                         <div class="flex text-black items-start gap-4">
-                            <p class="line-clamp-2">{{nfts[index].description}}</p>
+                            <p class="line-clamp-2 text-xs">{{nfts[index].description}}</p>
 
                             <button class="border border-solid border-black py-1 px-5 rounded-xl text-xs mt-2 ">Read
                                 more
@@ -102,6 +106,7 @@
         </div>
     </div>
     <div class="fixed bottom-0 right-0 left-0  h-[90px] border-solid border-t border-[#626465] flex justify-between">
+
         <button class="pl-4">
             <div :style="'opacity:' + (show ? 1: 0)">Press space to view more details</div>
 

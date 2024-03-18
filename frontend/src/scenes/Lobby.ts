@@ -22,17 +22,20 @@ export default class Demo extends Phaser.Scene {
 
     preload() {
 
+        const bgs = [
+            ['Background/1b.png', 'Background/2.png', 'Background/3b.png', 'Background/4b.png'],
+            ['Background/1.png', 'Background/2.png', 'Background/3.png', 'Background/4.png'],
+            ['Background/1c.png', 'Background/2c.png', 'Background/3c.png', 'Background/4c.png']
+        ]
+        const bgRandom = bgs[Math.floor(Math.random() * bgs.length)];
+        console.log('bgRandom is ' , bgRandom)
 
         this.load.image('bg', 'nous_assets/0_Backgrounds/bg-cool.png')
         this.load.image('bg', 'nous_assets/0_Backgrounds/bg-warm.png')
-        this.load.image('bg1', 'Background/1.png')
-        this.load.image('bg2', 'Background/2.png')
-        this.load.image('bg3', 'Background/3.png')
-        this.load.image('bg4', 'Background/4.png')
-        this.load.image('bb1', 'Background/1.png')
-        this.load.image('bb2', 'Background/2.png')
-        this.load.image('bb3', 'Background/3.png')
-        this.load.image('bb4', 'Background/4.png')
+        this.load.image('bg1', bgRandom[0])
+        this.load.image('bg2',  bgRandom[1])
+        this.load.image('bg3',  bgRandom[2])
+        this.load.image('bg4',  bgRandom[3])
 
         this.load.spritesheet('frog', 'Main Characters/Ninja Frog/Idle (32x32).png', {frameHeight: 32, frameWidth: 32})
         this.load.spritesheet('frogwalk', 'Main Characters/Ninja Frog/Run (32x32).png', {
